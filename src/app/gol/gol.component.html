@@ -1,0 +1,29 @@
+<header>
+  <img src="assets/space.gif">
+  <h1>Game of Life</h1>
+  <img src="assets/space.gif">
+</header>
+
+<div class="gol" [ngClass]="{'active' : this.statoGol}">
+  <!--L'array bidimensionale viene ciclato e rappresentato da una tabella di div>button-->
+  <div class="riga" *ngFor="let riga of (righe | toArray)">
+    <div class="cellula" *ngFor="let colonna of (colonne | toArray)">
+      <button #cell (click)="onClickChange(riga, colonna)"
+        [ngClass]="{viva: tabella.stato(riga, colonna) === 1}"></button>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="info">
+  <button type="button"
+    (click)="!this.statoGol ? this.isActive.next(true) : this.isActive.next(false)">{{!this.statoGol ? "AVVIA" : "PAUSA"}}</button>
+  <button type="button" (click)="generateRandom()">RANDOM</button>
+  <button type="button" (click)="onClickClear()">CLEAR</button>
+  <select [(ngModel)]="this.speed" (ngModelChange)="changeSpeed()" name="speed" id="speed">
+    <option value="250">LENTO</option>
+    <option value="100">NORMALE</option>
+    <option value="50">VELOCE</option>
+  </select>
+  <button id="gen">GEN {{this.generazione}}</button>
+</div>
